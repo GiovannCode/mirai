@@ -11,16 +11,25 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
             background-color: #0b0b0b;
             color: #fff;
+            overflow: hidden;
         }
+        
         .navbar {
             background-color: rgba(0, 0, 0, 0.9) !important;
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
+        
         .navbar-brand {
             font-weight: 700;
             font-size: 1.8rem;
@@ -29,37 +38,69 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        
         .nav-link {
             color: #fff !important;
             font-weight: 500;
             margin: 0 10px;
             transition: color 0.3s ease;
         }
+        
         .nav-link:hover {
             color: #667eea !important;
         }
+        
         .hero-section {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            margin-top: 0;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1925&q=80');
             background-size: cover;
             background-position: center;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            margin-top: 76px;
+            background-repeat: no-repeat;
+            animation: zoomBackground 20s infinite alternate ease-in-out;
+            z-index: -1;
         }
+        
+        @keyframes zoomBackground {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+        
         .hero-content {
             max-width: 600px;
+            margin-left: 5%;
         }
+        
         .hero-title {
             font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
         }
+        
         .hero-subtitle {
             font-size: 1.2rem;
             color: #e0e0e0;
             margin-bottom: 2rem;
         }
+        
         .btn-mirai {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
@@ -67,13 +108,36 @@
             padding: 12px 30px;
             border-radius: 50px;
             font-weight: 600;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
+        
         .btn-mirai:hover {
             transform: scale(1.05);
             color: white;
             background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
         }
+        
+        .btn-mirai::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-mirai:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
         .btn-outline-mirai {
             background: transparent;
             border: 2px solid #667eea;
@@ -83,104 +147,35 @@
             font-weight: 600;
             margin-left: 15px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
+        
         .btn-outline-mirai:hover {
             background: #667eea;
             color: white;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
         }
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            position: relative;
-            display: inline-block;
-        }
-        .section-title:after {
+        
+        .btn-outline-mirai::before {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 2px;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
         }
-        .category-card {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            transition: transform 0.3s ease;
-            cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.1);
+        
+        .btn-outline-mirai:hover::before {
+            width: 300px;
+            height: 300px;
         }
-        .category-card:hover {
-            transform: translateY(-10px);
-            border-color: #667eea;
-        }
-        .category-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-        .movie-card {
-            background: #1a1a1a;
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.1);
-            height: 100%;
-        }
-        .movie-card:hover {
-            transform: scale(1.05);
-            border-color: #667eea;
-        }
-        .movie-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-        .movie-info {
-            padding: 1.5rem;
-        }
-        .movie-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        .movie-meta {
-            color: #a0a0a0;
-            font-size: 0.9rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .rating {
-            color: #ffc107;
-        }
-        .footer {
-            background-color: #0a0a0a;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding: 4rem 0 2rem;
-        }
-        .footer-link {
-            color: #a0a0a0;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            line-height: 2;
-        }
-        .footer-link:hover {
-            color: #667eea;
-        }
-        .social-icon {
-            color: #a0a0a0;
-            font-size: 1.5rem;
-            margin-right: 1rem;
-            transition: color 0.3s ease;
-        }
-        .social-icon:hover {
-            color: #667eea;
-        }
+        
         .badge-quality {
             background: rgba(102, 126, 234, 0.2);
             color: #667eea;
@@ -188,6 +183,118 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+            }
+        }
+        
+        .info-items {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        
+        .info-item:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .info-item:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        
+        .info-item:nth-child(3) {
+            animation-delay: 1s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .info-item:hover {
+            background: rgba(102, 126, 234, 0.3);
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .info-item:hover i {
+            transform: rotate(360deg);
+            color: #fff;
+        }
+        
+        .info-item i {
+            font-size: 1.2rem;
+            color: #667eea;
+            transition: all 0.3s ease;
+        }
+        
+        .info-item span {
+            font-size: 0.95rem;
+        }
+        
+        .rating {
+            color: #ffc107;
+        }
+        
+        /* Efecto de partículas en el fondo */
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            animation: moveGradient 10s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes moveGradient {
+            0% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
         }
     </style>
 </head>
@@ -227,240 +334,30 @@
     <section class="hero-section">
         <div class="container">
             <div class="hero-content">
-                <span class="badge-quality mb-3">NUEVO ESTRENO</span>
-                <h1 class="hero-title">Dune: Parte Dos</h1>
-                <p class="hero-subtitle">Paul Atreides se une a Chani y los Fremen mientras continúa su viaje de venganza contra los conspiradores que destruyeron a su familia.</p>
+                <span class="badge-quality mb-3">BIENVENIDO A MIRAI</span>
+                <h1 class="hero-title">Disfruta del mejor streaming</h1>
+                <p class="hero-subtitle">Accede a miles de películas y series en 4K, sin límites y con contenido exclusivo.</p>
                 <div class="d-flex flex-wrap">
-                    <button class="btn btn-mirai"><i class="bi bi-play-fill me-2"></i>Reproducir</button>
-                    <button class="btn btn-outline-mirai"><i class="bi bi-info-circle me-2"></i>Más información</button>
+                    <button class="btn btn-mirai"><i class="bi bi-pencil-square me-2"></i>Registrarse</button>
+                    <button class="btn btn-outline-mirai"><i class="bi bi-box-arrow-in-right me-2"></i>Inicio de sesión</button>
                 </div>
-                <div class="mt-4 d-flex gap-4">
-                    <span><i class="bi bi-star-fill rating me-1"></i> 8.5/10</span>
-                    <span><i class="bi bi-clock me-1"></i> 2h 46min</span>
-                    <span><i class="bi bi-film me-1"></i> Ciencia ficción</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Categories -->
-    <section class="py-5">
-        <div class="container">
-            <h2 class="section-title">Explorar categorías</h2>
-            <div class="row g-4">
-                <div class="col-md-3 col-6">
-                    <div class="category-card">
-                        <i class="bi bi-film category-icon"></i>
-                        <h5>Películas</h5>
-                        <p class="text-secondary mb-0">2,500+ títulos</p>
+                <div class="info-items">
+                    <div class="info-item">
+                        <i class="bi bi-star-fill rating"></i>
+                        <span>+2,500 títulos</span>
                     </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="category-card">
-                        <i class="bi bi-tv category-icon"></i>
-                        <h5>Series</h5>
-                        <p class="text-secondary mb-0">1,800+ títulos</p>
+                    <div class="info-item">
+                        <i class="bi bi-film"></i>
+                        <span>4K Ultra HD</span>
                     </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="category-card">
-                        <i class="bi bi-stars category-icon"></i>
-                        <h5>Documentales</h5>
-                        <p class="text-secondary mb-0">900+ títulos</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="category-card">
-                        <i class="bi bi-emoji-smile category-icon"></i>
-                        <h5>Animación</h5>
-                        <p class="text-secondary mb-0">1,200+ títulos</p>
+                    <div class="info-item">
+                        <i class="bi bi-globe"></i>
+                        <span>Multi-idioma</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Trending Now -->
-    <section class="py-5">
-        <div class="container">
-            <h2 class="section-title">Tendencias</h2>
-            <div class="row g-4">
-                <div class="col-lg-3 col-md-4 col-6">
-                    <div class="movie-card">
-                        <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" class="movie-img" alt="Movie">
-                        <div class="movie-info">
-                            <h5 class="movie-title">Oppenheimer</h5>
-                            <div class="movie-meta">
-                                <span><i class="bi bi-star-fill rating me-1"></i>8.9</span>
-                                <span class="badge-quality">4K</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-6">
-                    <div class="movie-card">
-                        <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" class="movie-img" alt="Movie">
-                        <div class="movie-info">
-                            <h5 class="movie-title">The Last of Us</h5>
-                            <div class="movie-meta">
-                                <span><i class="bi bi-star-fill rating me-1"></i>9.2</span>
-                                <span class="badge-quality">HD</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-6">
-                    <div class="movie-card">
-                        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" class="movie-img" alt="Movie">
-                        <div class="movie-info">
-                            <h5 class="movie-title">John Wick 4</h5>
-                            <div class="movie-meta">
-                                <span><i class="bi bi-star-fill rating me-1"></i>8.4</span>
-                                <span class="badge-quality">4K</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-6">
-                    <div class="movie-card">
-                        <img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" class="movie-img" alt="Movie">
-                        <div class="movie-info">
-                            <h5 class="movie-title">The Witcher</h5>
-                            <div class="movie-meta">
-                                <span><i class="bi bi-star-fill rating me-1"></i>8.1</span>
-                                <span class="badge-quality">HD</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Continue Watching -->
-    <section class="py-5">
-        <div class="container">
-            <h2 class="section-title">Continuar viendo</h2>
-            <div class="row g-4">
-                <div class="col-lg-3 col-md-4 col-6">
-                    <div class="movie-card">
-                        <div class="position-relative">
-                            <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1925&q=80" class="movie-img" alt="Movie">
-                            <div class="progress position-absolute bottom-0 w-100 rounded-0" style="height: 4px;">
-                                <div class="progress-bar bg-success" style="width: 75%"></div>
-                            </div>
-                        </div>
-                        <div class="movie-info">
-                            <h5 class="movie-title">Dune: Parte Dos</h5>
-                            <div class="movie-meta">
-                                <span>Capítulo 12</span>
-                                <span>75%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-6">
-                    <div class="movie-card">
-                        <div class="position-relative">
-                            <img src="https://images.unsplash.com/photo-1574267432641-fbcf7f4c7b9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" class="movie-img" alt="Movie">
-                            <div class="progress position-absolute bottom-0 w-100 rounded-0" style="height: 4px;">
-                                <div class="progress-bar bg-success" style="width: 45%"></div>
-                            </div>
-                        </div>
-                        <div class="movie-info">
-                            <h5 class="movie-title">Stranger Things</h5>
-                            <div class="movie-meta">
-                                <span>T4 E8</span>
-                                <span>45%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-6">
-                    <div class="movie-card">
-                        <div class="position-relative">
-                            <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" class="movie-img" alt="Movie">
-                            <div class="progress position-absolute bottom-0 w-100 rounded-0" style="height: 4px;">
-                                <div class="progress-bar bg-success" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="movie-info">
-                            <h5 class="movie-title">The Crown</h5>
-                            <div class="movie-meta">
-                                <span>T5 E10</span>
-                                <span>90%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-6">
-                    <div class="movie-card">
-                        <div class="position-relative">
-                            <img src="https://images.unsplash.com/photo-1559583109-3e7968136c99?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" class="movie-img" alt="Movie">
-                            <div class="progress position-absolute bottom-0 w-100 rounded-0" style="height: 4px;">
-                                <div class="progress-bar bg-success" style="width: 30%"></div>
-                            </div>
-                        </div>
-                        <div class="movie-info">
-                            <h5 class="movie-title">The Mandalorian</h5>
-                            <div class="movie-meta">
-                                <span>T3 E4</span>
-                                <span>30%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <h3 class="navbar-brand mb-3">MIRAI</h3>
-                    <p class="text-secondary">La mejor experiencia de streaming con contenido exclusivo y la más alta calidad.</p>
-                    <div class="mt-3">
-                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="col-md-2 mb-4">
-                    <h5 class="mb-3">Navegación</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="footer-link">Inicio</a></li>
-                        <li><a href="#" class="footer-link">Series</a></li>
-                        <li><a href="#" class="footer-link">Películas</a></li>
-                        <li><a href="#" class="footer-link">Mi lista</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2 mb-4">
-                    <h5 class="mb-3">Legal</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="footer-link">Términos</a></li>
-                        <li><a href="#" class="footer-link">Privacidad</a></li>
-                        <li><a href="#" class="footer-link">Cookies</a></li>
-                        <li><a href="#" class="footer-link">Avisos legales</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3">Descarga la app</h5>
-                    <p class="text-secondary">Disponible para iOS y Android</p>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-outline-light"><i class="bi bi-apple me-2"></i>App Store</button>
-                        <button class="btn btn-outline-light"><i class="bi bi-google-play me-2"></i>Google Play</button>
-                    </div>
-                </div>
-            </div>
-            <hr class="border-secondary">
-            <div class="text-center text-secondary pt-3">
-                <p class="mb-0">&copy; 2024 Mirai Streaming. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
