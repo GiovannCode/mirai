@@ -1,0 +1,317 @@
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0b0b;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.9) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #667eea !important;
+        }
+        
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            margin-top: 0;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1925&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            animation: zoomBackground 20s infinite alternate ease-in-out;
+            z-index: -1;
+        }
+
+        .footer {
+            background-color: #0a0a0a;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 4rem 0 2rem;
+        }
+        .footer-link {
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            line-height: 2;
+        }
+        .footer-link:hover {
+            color: #667eea;
+        }
+        .social-icon {
+            color: #a0a0a0;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            transition: color 0.3s ease;
+        }
+        .social-icon:hover {
+            color: #667eea;
+        }
+        .badge-quality {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        @keyframes zoomBackground {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+        
+        .hero-content {
+            max-width: 600px;
+            margin-left: 5%;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            margin-bottom: 2rem;
+        }
+        
+        .btn-mirai {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-mirai:hover {
+            transform: scale(1.05);
+            color: white;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+        
+        .btn-mirai::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-mirai:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-outline-mirai {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: white;
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-left: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-outline-mirai:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+        
+        .btn-outline-mirai::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-outline-mirai:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .badge-quality {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+            }
+        }
+        
+        .info-items {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        
+        .info-item:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .info-item:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        
+        .info-item:nth-child(3) {
+            animation-delay: 1s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .info-item:hover {
+            background: rgba(102, 126, 234, 0.3);
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .info-item:hover i {
+            transform: rotate(360deg);
+            color: #fff;
+        }
+        
+        .info-item i {
+            font-size: 1.2rem;
+            color: #667eea;
+            transition: all 0.3s ease;
+        }
+        
+        .info-item span {
+            font-size: 0.95rem;
+        }
+        
+        .rating {
+            color: #ffc107;
+        }
+        
+        /* Efecto de partículas en el fondo */
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            animation: moveGradient 10s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes moveGradient {
+            0% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+        }

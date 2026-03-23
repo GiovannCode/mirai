@@ -2,27 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 class StreamController extends Controller
 {
-    public function stream($movie, $file)
+    public function stream(Request $request)
     {
-        $fullPath = storage_path("app/hls/$movie/$file");
+        $url = $request->query('url');
 
-        if (!file_exists($fullPath)) {
+        if (!$url) {
             return response()->json([
-                "error" => "Archivo no encontrado",
-                "path" => $fullPath
-            ], 404);
+                "error" => "URL no proporcionada"
+            ], 400);
         }
 
-        $mimeType = match (pathinfo($file, PATHINFO_EXTENSION)) {
-            'm3u8' => 'application/vnd.apple.mpegurl',
-            'ts' => 'video/MP2T',
-            default => 'application/octet-stream',
-        };
+        // Detectar tipo
+        if (str_contains($url, '.m3u8')) {
+            // HLS
+            return redirect()->away($url);
+        }
 
-        return response()->file($fullPath, [
-            'Content-Type' => $mimeType
-        ]);
+        if (str_contains($url, '.mp4')) {
+            // Video normal
+            return redirect()->away($url);
+        }
+
+        return response()->json([
+            "error" => "Formato no soportado"
+        ], 400);
     }
 }

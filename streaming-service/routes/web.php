@@ -8,3 +8,5 @@ Route::get('/', function () {
 });
 
 Route::get('/stream/{movie}/{file}', [StreamController::class, 'stream']);
+
+Route::get('/stream/{movie}', [StreamController::class, 'stream']);
