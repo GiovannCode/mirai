@@ -17,7 +17,7 @@ Route::any('/catalog/{any}', function ($any) {
     return app('gateway')->forward('catalog', $any);
 })->where('any', '.*');
 
-// PLAYBACK
+// PLAYBACK tal vez no se desarrolle xd
 Route::any('/playback/{any}', function ($any) {
     return app('gateway')->forward('playback', $any);
 })->where('any', '.*');

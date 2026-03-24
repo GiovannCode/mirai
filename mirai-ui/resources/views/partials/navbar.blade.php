@@ -17,7 +17,7 @@
             <div class="d-flex">
                 <a href="#" class="nav-link"><i class="bi bi-search"></i></a>
                 <a href="#" class="nav-link"><i class="bi bi-bell"></i></a>
-                <a href="#" class="nav-link"><i class="bi bi-person-circle"></i></a>
+                <a href="{{ route('profile') }}" class="nav-link"><i class="bi bi-person-circle"></i></a>
             </div>
             @endif
         </div>

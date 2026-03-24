@@ -43,3 +43,7 @@ Route::get('/logout-test', function () {
     session()->forget('token');
     return "LOGOUT OK";
 });
+
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
