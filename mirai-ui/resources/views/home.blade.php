@@ -15,11 +15,11 @@
             <p class="hero-subtitle">Accede a miles de películas y series en 4K, sin límites y con contenido exclusivo.</p>
 
             <div class="d-flex flex-wrap">
-                <a href="{{ url('/register') }}" class="btn btn-mirai">
+                <a href="{{ route('register') }}" class="btn btn-mirai">
                     <i class="bi bi-pencil-square me-2"></i>Registrarse
                 </a>
 
-                <a href="{{ url('/login') }}" class="btn btn-outline-mirai">
+                <a href="{{ route('login') }}" class="btn btn-outline-mirai">
                     <i class="bi bi-box-arrow-in-right me-2"></i>Inicio de sesión
                 </a>
             </div>

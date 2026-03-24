@@ -36,7 +36,7 @@
                 </ul>
             </div>
 
-            <div class="col-md-4 mb-4">
+            <!-- <div class="col-md-4 mb-4">
                 <h5 class="mb-3">Descarga la app</h5>
                 <p class="text-secondary">Disponible para iOS y Android</p>
 
@@ -48,7 +48,7 @@
                         <i class="bi bi-google-play me-2"></i>Google Play
                     </button>
                 </div>
-            </div>
+            </div> -->
 
         </div>
 

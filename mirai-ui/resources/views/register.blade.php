@@ -130,7 +130,7 @@
             </div>
 
             <div class="login-link">
-                ¿Ya tienes cuenta? <a href="#">Inicia sesión</a>
+                ¿Ya tienes cuenta? <a href="{{ route('login') }}">Inicia sesión</a>
             </div>
         </form>
     </div>
