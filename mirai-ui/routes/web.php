@@ -39,11 +39,19 @@ Route::get('/register', function () {
     return view('register');
 })->name('register');
 
-Route::get('/logout-test', function () {
-    session()->forget('token');
-    return "LOGOUT OK";
-});
 
 Route::get('/profile', function () {
     return view('profile');
 })->name('profile');
+
+Route::get('/upload', function () {
+    return view('upload');
+})->name('upload');
+
+Route::post('/upload', [UploadController::class, 'upload'])->name('upload.video');
+
+
+Route::get('/logout-test', function () {
+    session()->forget('token');
+    return "LOGOUT OK";
+});
