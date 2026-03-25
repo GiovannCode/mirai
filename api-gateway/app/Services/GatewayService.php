@@ -9,7 +9,8 @@ class GatewayService
     protected $services = [
         'auth' => 'http://localhost:8001',
         'users' => 'http://localhost:8002',
-        'catalog' => 'http://localhost:8003',
+        // Catalog-service expone estas rutas en /api/catalog/*
+        'catalog' => 'http://localhost:8003/api/catalog',
         'playback' => 'http://localhost:8004',
         'streaming' => 'http://localhost:8005',
     ];

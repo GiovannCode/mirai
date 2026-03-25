@@ -3,363 +3,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mirai - Streaming</title>
-    <!-- Bootstrap 5 CSS -->
+    <title>Mirai - Catalogo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg: #080a0d;
+            --bg-soft: #121922;
+            --line: #1d2b3b;
+            --text: #e8efff;
+            --muted: #9cb4d6;
+            --accent: #00d1a0;
+            --accent-2: #00a6ff;
         }
-        
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0b0b0b;
-            color: #fff;
-            overflow: hidden;
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            color: var(--text);
+            background: radial-gradient(1100px 500px at 10% -10%, #12395d 0%, transparent 55%),
+                        radial-gradient(900px 500px at 90% 0%, #1d3d2f 0%, transparent 50%),
+                        var(--bg);
+            min-height: 100vh;
         }
-        
+
         .navbar {
-            background-color: rgba(0, 0, 0, 0.9) !important;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(8, 10, 13, 0.9);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(8px);
         }
-        
+
         .navbar-brand {
+            color: var(--accent) !important;
             font-weight: 700;
-            font-size: 1.8rem;
             letter-spacing: 2px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
-        
-        .nav-link {
-            color: #fff !important;
-            font-weight: 500;
-            margin: 0 10px;
-            transition: color 0.3s ease;
+
+        .section-title {
+            font-weight: 700;
+            letter-spacing: 0.4px;
         }
-        
-        .nav-link:hover {
-            color: #667eea !important;
-        }
-        
-        .hero-section {
-            position: relative;
-            height: 100vh;
-            width: 100vw;
+
+        .filter-bar {
+            background: rgba(13, 20, 32, 0.75);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
-            margin-top: 0;
-            overflow: hidden;
+            gap: 10px;
+            flex-wrap: wrap;
         }
-        
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1925&q=80');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            animation: zoomBackground 20s infinite alternate ease-in-out;
-            z-index: -1;
-        }
-        
-        @keyframes zoomBackground {
-            0% {
-                transform: scale(1);
-            }
-            100% {
-                transform: scale(1.1);
-            }
-        }
-        
-        .hero-content {
-            max-width: 600px;
-            margin-left: 5%;
-        }
-        
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: #e0e0e0;
-            margin-bottom: 2rem;
-        }
-        
-        .btn-mirai {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-mirai:hover {
-            transform: scale(1.05);
-            color: white;
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
-        }
-        
-        .btn-mirai::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        
-        .btn-mirai:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-        
-        .btn-outline-mirai {
-            background: transparent;
-            border: 2px solid #667eea;
-            color: white;
-            padding: 10px 28px;
-            border-radius: 50px;
-            font-weight: 600;
-            margin-left: 15px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-outline-mirai:hover {
-            background: #667eea;
-            color: white;
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
-        }
-        
-        .btn-outline-mirai::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        
-        .btn-outline-mirai:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-        
-        .badge-quality {
-            background: rgba(102, 126, 234, 0.2);
-            color: #667eea;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
+
+        .filter-label {
             font-size: 0.8rem;
             font-weight: 600;
-            display: inline-block;
-            animation: pulse 2s infinite;
+            color: var(--muted);
+            white-space: nowrap;
+            letter-spacing: 0.5px;
         }
-        
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
-            }
-        }
-        
-        .info-items {
+
+        .genre-pills {
             display: flex;
-            gap: 2rem;
-            margin-top: 2rem;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex: 1;
         }
-        
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            animation: float 3s ease-in-out infinite;
+
+        .genre-pill {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #2b3a4f;
+            color: var(--muted);
+            border-radius: 999px;
+            padding: 5px 14px;
+            font-size: 0.82rem;
+            font-weight: 500;
             cursor: pointer;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
+            transition: background 0.18s, color 0.18s, border-color 0.18s;
+            white-space: nowrap;
+            user-select: none;
         }
-        
-        .info-item:nth-child(1) {
-            animation-delay: 0s;
+
+        .genre-pill:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text);
+            border-color: #4a6a8f;
         }
-        
-        .info-item:nth-child(2) {
-            animation-delay: 0.5s;
-        }
-        
-        .info-item:nth-child(3) {
-            animation-delay: 1s;
-        }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-5px);
-            }
-            100% {
-                transform: translateY(0px);
-            }
-        }
-        
-        .info-item:hover {
-            background: rgba(102, 126, 234, 0.3);
-            transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-        
-        .info-item:hover i {
-            transform: rotate(360deg);
+
+        .genre-pill.active {
+            background: var(--accent-2);
+            border-color: var(--accent-2);
             color: #fff;
+            font-weight: 600;
         }
-        
-        .info-item i {
-            font-size: 1.2rem;
-            color: #667eea;
-            transition: all 0.3s ease;
+
+        .search-wrap {
+            position: relative;
+            flex-shrink: 0;
         }
-        
-        .info-item span {
-            font-size: 0.95rem;
-        }
-        
-        .rating {
-            color: #ffc107;
-        }
-        
-        /* Efecto de partículas en el fondo */
-        .hero-section::after {
-            content: '';
+
+        .search-wrap i {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4a6a8f;
+            font-size: 0.9rem;
             pointer-events: none;
-            animation: moveGradient 10s ease-in-out infinite;
-            z-index: -1;
         }
-        
-        @keyframes moveGradient {
-            0% {
-                opacity: 0.5;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.2);
-            }
-            100% {
-                opacity: 0.5;
-                transform: scale(1);
-            }
+
+        .search-wrap input {
+            background: rgba(15, 21, 32, 0.9);
+            border: 1px solid #2b3a4f;
+            border-radius: 999px;
+            color: #e8efff;
+            padding: 5px 14px 5px 32px;
+            font-size: 0.85rem;
+            width: 180px;
+            outline: none;
+            transition: border-color 0.18s, width 0.3s;
+        }
+
+        .search-wrap input::placeholder {
+            color: #4a6a8f;
+        }
+
+        .search-wrap input:focus {
+            border-color: var(--accent-2);
+            width: 220px;
+        }
+
+        .movie-card {
+            background: linear-gradient(180deg, #101927 0%, #0d141f 100%);
+            border: 1px solid #223146;
+            border-radius: 16px;
+            overflow: hidden;
+            height: 100%;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+        }
+
+        .poster {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #0e1f30;
+        }
+
+        .placeholder-poster {
+            width: 100%;
+            height: 200px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #15314b, #133327);
+            color: #d3e9ff;
+            font-size: 2rem;
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .chip {
+            font-size: 0.78rem;
+            color: #0a151f;
+            background: var(--accent);
+            border-radius: 999px;
+            padding: 3px 10px;
+            font-weight: 700;
+        }
+
+        .modal-content {
+            background: #0d1420;
+            color: var(--text);
+            border: 1px solid #26344a;
+        }
+
+        .video-wrap video {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #2d3d55;
+            background: #000;
+        }
+
+        .empty-state {
+            border: 1px dashed #315071;
+            border-radius: 14px;
+            color: var(--muted);
+            padding: 26px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#">MIRAI</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Series</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Películas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Mi lista</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <a href="#" class="nav-link"><i class="bi bi-search"></i></a>
-                    <a href="#" class="nav-link"><i class="bi bi-bell"></i></a>
-                    <a href="#" class="nav-link"><i class="bi bi-person-circle"></i></a>
-                </div>
-            </div>
+            <span class="navbar-brand">MIRAI</span>
+            <span class="text-light">Catalogo de peliculas</span>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container">
-            <div class="hero-content">
-                <span class="badge-quality mb-3">BIENVENIDO A MIRAI</span>
-                <h1 class="hero-title">Disfruta del mejor streaming</h1>
-                <p class="hero-subtitle">Accede a miles de películas y series en 4K, sin límites y con contenido exclusivo.</p>
-                <div class="d-flex flex-wrap">
-                    <button class="btn btn-mirai"><i class="bi bi-pencil-square me-2"></i>Registrarse</button>
-                    <button class="btn btn-outline-mirai"><i class="bi bi-box-arrow-in-right me-2"></i>Inicio de sesión</button>
+    <main class="container py-4 py-md-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="section-title mb-0">Disponibles ahora</h1>
+            <small id="countLabel" class="text-secondary"></small>
+        </div>
+
+        <div class="filter-bar mb-4">
+            <span class="filter-label">Género:</span>
+            <div class="genre-pills" id="genrePills">
+                <button class="genre-pill active" data-genre="">Todos</button>
+                <button class="genre-pill" data-genre="Accion">Acción</button>
+                <button class="genre-pill" data-genre="Aventura">Aventura</button>
+                <button class="genre-pill" data-genre="Ciencia Ficcion">Ciencia Ficción</button>
+                <button class="genre-pill" data-genre="Comedia">Comedia</button>
+                <button class="genre-pill" data-genre="Drama">Drama</button>
+                <button class="genre-pill" data-genre="Fantasia">Fantasía</button>
+                <button class="genre-pill" data-genre="Historia">Historia</button>
+                <button class="genre-pill" data-genre="Suspenso">Suspenso</button>
+                <button class="genre-pill" data-genre="Terror">Terror</button>
+            </div>
+            <div class="search-wrap">
+                <i class="bi bi-search"></i>
+                <input id="titleSearch" type="text" placeholder="Buscar título...">
+            </div>
+        </div>
+
+        <div id="loadingState" class="text-secondary mb-3">Cargando catalogo...</div>
+        <div id="catalogGrid" class="row g-4"></div>
+    </main>
+
+    <div class="modal fade" id="movieModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="movieModalTitle">Detalle de pelicula</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="info-items">
-                    <div class="info-item">
-                        <i class="bi bi-star-fill rating"></i>
-                        <span>+2,500 títulos</span>
-                    </div>
-                    <div class="info-item">
-                        <i class="bi bi-film"></i>
-                        <span>4K Ultra HD</span>
-                    </div>
-                    <div class="info-item">
-                        <i class="bi bi-globe"></i>
-                        <span>Multi-idioma</span>
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-lg-7 video-wrap">
+                            <video id="moviePlayer" controls preload="metadata"></video>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="mb-2 meta" id="movieMeta"></div>
+                            <p id="movieDescription" class="mb-3"></p>
+                            <a id="movieDirectLink" href="#" target="_blank" class="btn btn-outline-info btn-sm mt-2">Abrir video directo</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE = 'http://127.0.0.1:8003/api/catalog/movies';
+        const fallbackPoster = 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80';
+
+        const catalogGrid = document.getElementById('catalogGrid');
+        const loadingState = document.getElementById('loadingState');
+        const countLabel = document.getElementById('countLabel');
+        const titleSearch = document.getElementById('titleSearch');
+        const genrePills = document.getElementById('genrePills');
+
+        const movieModalEl = document.getElementById('movieModal');
+        const movieModal = new bootstrap.Modal(movieModalEl);
+
+        let activeGenre = '';
+        let searchTimeout = null;
+
+        function asDate(dateValue) {
+            if (!dateValue) return 'Sin fecha';
+            return new Date(dateValue + 'T00:00:00').toLocaleDateString('es-MX', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function formatViews(views) {
+            const parsed = Number(views || 0);
+            return parsed.toLocaleString('es-MX') + ' vistas';
+        }
+
+        function buildMovieCard(movie) {
+            const col = document.createElement('div');
+            col.className = 'col-12 col-md-6 col-lg-4';
+
+            const posterNode = movie.thumbnail_url
+                ? `<img class="poster" src="${movie.thumbnail_url}" onerror="this.src='${fallbackPoster}'" alt="Poster de ${movie.title}">`
+                : `<div class="placeholder-poster"><i class="bi bi-film"></i></div>`;
+
+            col.innerHTML = `
+                <article class="movie-card p-0">
+                    ${posterNode}
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                            <h5 class="mb-0">${movie.title}</h5>
+                            <span class="chip">${movie.genre}</span>
+                        </div>
+                        <p class="meta mb-2">${asDate(movie.released_at)} | ${formatViews(movie.views_count)}</p>
+                        <p class="mb-3">${(movie.description || 'Sin sinopsis').slice(0, 170)}...</p>
+                        <button class="btn btn-sm btn-info" data-id="${movie.id}">
+                            <i class="bi bi-play-circle me-1"></i> Ver detalle
+                        </button>
+                    </div>
+                </article>
+            `;
+
+            const detailBtn = col.querySelector('button[data-id]');
+            detailBtn.addEventListener('click', () => openMovie(movie));
+            return col;
+        }
+
+        function openMovie(movie) {
+            document.getElementById('movieModalTitle').textContent = movie.title;
+            document.getElementById('movieDescription').textContent = movie.description || 'Sin sinopsis';
+            document.getElementById('movieMeta').textContent = `${movie.genre} | ${asDate(movie.released_at)} | ${formatViews(movie.views_count)}`;
+
+            const player = document.getElementById('moviePlayer');
+            player.src = movie.video_url || '';
+
+            const directLink = document.getElementById('movieDirectLink');
+            directLink.href = movie.video_url || '#';
+            directLink.classList.toggle('disabled', !movie.video_url);
+
+            movieModal.show();
+        }
+
+        async function loadCatalog() {
+            loadingState.textContent = 'Cargando catálogo...';
+            catalogGrid.innerHTML = '';
+
+            try {
+                const params = new URLSearchParams({ per_page: 50 });
+                if (activeGenre) params.set('genre', activeGenre);
+
+                const response = await fetch(`${API_BASE}?${params}`);
+
+                if (!response.ok) throw new Error();
+
+                const payload = await response.json();
+                let rows = Array.isArray(payload.data) ? payload.data : [];
+
+                const titleFilter = titleSearch.value.trim().toLowerCase();
+                if (titleFilter) {
+                    rows = rows.filter(m => m.title.toLowerCase().includes(titleFilter));
+                }
+
+                countLabel.textContent = `${rows.length} título(s)`;
+
+                if (!rows.length) {
+                    loadingState.innerHTML = '<div class="empty-state">No hay películas para mostrar.</div>';
+                    return;
+                }
+
+                loadingState.textContent = '';
+                rows.forEach((movie) => catalogGrid.appendChild(buildMovieCard(movie)));
+            } catch (error) {
+                loadingState.innerHTML = '<div class="empty-state">No se pudo cargar el catálogo. Verifica que catalog-service esté en puerto 8003.</div>';
+                countLabel.textContent = '0 título(s)';
+            }
+        }
+
+        genrePills.addEventListener('click', (e) => {
+            const pill = e.target.closest('.genre-pill');
+            if (!pill) return;
+            genrePills.querySelectorAll('.genre-pill').forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            activeGenre = pill.dataset.genre;
+            loadCatalog();
+        });
+
+        titleSearch.addEventListener('input', () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(loadCatalog, 350);
+        });
+
+        movieModalEl.addEventListener('hidden.bs.modal', () => {
+            const player = document.getElementById('moviePlayer');
+            player.pause();
+            player.removeAttribute('src');
+            player.load();
+        });
+
+        loadCatalog();
+    </script>
 </body>
 </html>
