@@ -21,15 +21,15 @@ Route::get('/test-protegido', function () {
 
 Route::get('/series', function () {
     return view('series');
-});
+})->name('series');;
 
 Route::get('/peliculas', function () {
     return view('peliculas');
-});
+})->name('peliculas');;
 
-Route::get('/mi-lista', function () {
-    return view('mi-lista');
-});
+// Route::get('/mi-lista', function () {
+//     return view('mi-lista');
+// });
 
 Route::get('/login', function () {
     return view('login');
