@@ -2,7 +2,7 @@
 
 @section('styles')
 <style>
-    /* TODO tu CSS aquí */
+
 </style>
 @endsection
 
