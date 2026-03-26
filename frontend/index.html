@@ -202,9 +202,16 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <span class="navbar-brand">MIRAI</span>
-            <span class="text-light">Catalogo de peliculas</span>
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <a href="Usuario.php" class="text-decoration-none"><span class="navbar-brand">MIRAI</span></a>
+                <span class="text-light d-none d-md-inline ms-2">Catálogo de películas</span>
+            </div>
+            <div>
+                <a href="login.html" class="text-decoration-none" style="color: var(--muted);" id="auth-link">
+                    <i class="bi bi-person-circle"></i> <span id="auth-text" class="ms-1 font-weight-bold">Iniciar Sesión</span>
+                </a>
+            </div>
         </div>
     </nav>
 
@@ -394,6 +401,33 @@
         });
 
         loadCatalog();
+    </script>
+    <!-- Firebase Auth Status -->
+    <script type="module">
+        import { auth } from './firebase-config.js';
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+        
+        const authLink = document.getElementById('auth-link');
+        const authText = document.getElementById('auth-text');
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                authText.textContent = user.displayName ? 'Hola, ' + user.displayName : 'Mi Cuenta';
+                authLink.href = "#";
+                authLink.onclick = (e) => {
+                    e.preventDefault();
+                    if(confirm("¿Deseas cerrar sesión?")) {
+                        signOut(auth).then(() => {
+                            window.location.reload();
+                        });
+                    }
+                };
+            } else {
+                authText.textContent = 'Iniciar Sesión';
+                authLink.href = 'login.html';
+                authLink.onclick = null;
+            }
+        });
     </script>
 </body>
 </html>

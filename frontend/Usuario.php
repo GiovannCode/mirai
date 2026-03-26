@@ -217,7 +217,9 @@
                 <div class="d-flex">
                     <a href="#" class="nav-link"><i class="bi bi-search"></i></a>
                     <a href="#" class="nav-link"><i class="bi bi-bell"></i></a>
-                    <a href="#" class="nav-link"><i class="bi bi-person-circle"></i></a>
+                    <a href="login.html" class="nav-link" id="auth-link">
+                        <i class="bi bi-person-circle"></i> <span id="auth-text" class="ms-1 d-none d-md-inline" style="font-size: 0.9rem;">Iniciar Sesión</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -464,5 +466,32 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Firebase Auth Status -->
+    <script type="module">
+        import { auth } from './firebase-config.js';
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+        
+        const authLink = document.getElementById('auth-link');
+        const authText = document.getElementById('auth-text');
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                authText.textContent = user.displayName ? 'Hola, ' + user.displayName : 'Mi Cuenta';
+                authLink.href = "#";
+                authLink.onclick = (e) => {
+                    e.preventDefault();
+                    if(confirm("¿Deseas cerrar sesión?")) {
+                        signOut(auth).then(() => {
+                            window.location.reload();
+                        });
+                    }
+                };
+            } else {
+                authText.textContent = 'Iniciar Sesión';
+                authLink.href = 'login.html';
+                authLink.onclick = null;
+            }
+        });
+    </script>
 </body>
 </html>
