@@ -2,27 +2,53 @@
 
 use Illuminate\Support\Facades\Route;
 
-// AUTH
+// ==================== AUTH ====================
+
+// Rutas específicas (más claras)
+Route::post('/auth/login', function () {
+    return app('gateway')->forward('auth', 'login');
+});
+
+Route::post('/auth/register', function () {
+    return app('gateway')->forward('auth', 'register');
+});
+
+// Catch-all para lo demás
 Route::any('/auth/{any}', function ($any) {
     return app('gateway')->forward('auth', $any);
 })->where('any', '.*');
 
-// USERS
+
+// ==================== USERS ====================
+
 Route::any('/users/{any}', function ($any) {
     return app('gateway')->forward('users', $any);
 })->where('any', '.*');
 
-// CATALOG
+
+// ==================== CATALOG ====================
+
 Route::any('/catalog/{any}', function ($any) {
     return app('gateway')->forward('catalog', $any);
 })->where('any', '.*');
 
-// PLAYBACK tal vez no se desarrolle xd
+
+// ==================== UPLOAD ====================
+
+Route::any('/upload/{any}', function ($any) {
+    return app('gateway')->forward('upload', $any);
+})->where('any', '.*');
+
+
+// ==================== PLAYBACK ====================
+
 Route::any('/playback/{any}', function ($any) {
     return app('gateway')->forward('playback', $any);
 })->where('any', '.*');
 
-// STREAMING
+
+// ==================== STREAMING ====================
+
 Route::any('/streaming/{any}', function ($any) {
     return app('gateway')->forward('streaming', $any);
 })->where('any', '.*');
