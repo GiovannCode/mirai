@@ -1,22 +1,433 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peliculas</title>
-
-    <!-- Bootstrap CSS -->
+    <title>Mirai - Catalogo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-</head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --bg: #080a0d;
+            --bg-soft: #121922;
+            --line: #1d2b3b;
+            --text: #e8efff;
+            --muted: #9cb4d6;
+            --accent: #00d1a0;
+            --accent-2: #00a6ff;
+        }
 
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            color: var(--text);
+            background: radial-gradient(1100px 500px at 10% -10%, #12395d 0%, transparent 55%),
+                        radial-gradient(900px 500px at 90% 0%, #1d3d2f 0%, transparent 50%),
+                        var(--bg);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(8, 10, 13, 0.9);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(8px);
+        }
+
+        .navbar-brand {
+            color: var(--accent) !important;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .section-title {
+            font-weight: 700;
+            letter-spacing: 0.4px;
+        }
+
+        .filter-bar {
+            background: rgba(13, 20, 32, 0.75);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--muted);
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .genre-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .genre-pill {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #2b3a4f;
+            color: var(--muted);
+            border-radius: 999px;
+            padding: 5px 14px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.18s, color 0.18s, border-color 0.18s;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        .genre-pill:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text);
+            border-color: #4a6a8f;
+        }
+
+        .genre-pill.active {
+            background: var(--accent-2);
+            border-color: var(--accent-2);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .search-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .search-wrap i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4a6a8f;
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+
+        .search-wrap input {
+            background: rgba(15, 21, 32, 0.9);
+            border: 1px solid #2b3a4f;
+            border-radius: 999px;
+            color: #e8efff;
+            padding: 5px 14px 5px 32px;
+            font-size: 0.85rem;
+            width: 180px;
+            outline: none;
+            transition: border-color 0.18s, width 0.3s;
+        }
+
+        .search-wrap input::placeholder {
+            color: #4a6a8f;
+        }
+
+        .search-wrap input:focus {
+            border-color: var(--accent-2);
+            width: 220px;
+        }
+
+        .movie-card {
+            background: linear-gradient(180deg, #101927 0%, #0d141f 100%);
+            border: 1px solid #223146;
+            border-radius: 16px;
+            overflow: hidden;
+            height: 100%;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+        }
+
+        .poster {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #0e1f30;
+        }
+
+        .placeholder-poster {
+            width: 100%;
+            height: 200px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #15314b, #133327);
+            color: #d3e9ff;
+            font-size: 2rem;
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .chip {
+            font-size: 0.78rem;
+            color: #0a151f;
+            background: var(--accent);
+            border-radius: 999px;
+            padding: 3px 10px;
+            font-weight: 700;
+        }
+
+        .modal-content {
+            background: #0d1420;
+            color: var(--text);
+            border: 1px solid #26344a;
+        }
+
+        .video-wrap video {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #2d3d55;
+            background: #000;
+        }
+
+        .empty-state {
+            border: 1px dashed #315071;
+            border-radius: 14px;
+            color: var(--muted);
+            padding: 26px;
+            text-align: center;
+        }
+    </style>
+</head>
 <body>
-    @include('partials.navbar')
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <a href="{{ url('/') }}" class="text-decoration-none"><span class="navbar-brand">MIRAI</span></a>
+                <span class="text-light d-none d-md-inline ms-2">Catálogo de películas</span>
+            </div>
+            <div>
+                <a href="{{ url('/login') }}" class="text-decoration-none" style="color: var(--muted);" id="auth-link">
+                    <i class="bi bi-person-circle"></i> <span id="auth-text" class="ms-1 font-weight-bold">Iniciar Sesión</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-4 py-md-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="section-title mb-0">Disponibles ahora</h1>
+            <small id="countLabel" class="text-secondary"></small>
+        </div>
+
+        <div class="filter-bar mb-4">
+            <span class="filter-label">Género:</span>
+            <div class="genre-pills" id="genrePills">
+                <button class="genre-pill active" data-genre="">Todos</button>
+                <button class="genre-pill" data-genre="Accion">Acción</button>
+                <button class="genre-pill" data-genre="Aventura">Aventura</button>
+                <button class="genre-pill" data-genre="Ciencia Ficcion">Ciencia Ficción</button>
+                <button class="genre-pill" data-genre="Comedia">Comedia</button>
+                <button class="genre-pill" data-genre="Drama">Drama</button>
+                <button class="genre-pill" data-genre="Fantasia">Fantasía</button>
+                <button class="genre-pill" data-genre="Historia">Historia</button>
+                <button class="genre-pill" data-genre="Suspenso">Suspenso</button>
+                <button class="genre-pill" data-genre="Terror">Terror</button>
+            </div>
+            <div class="search-wrap">
+                <i class="bi bi-search"></i>
+                <input id="titleSearch" type="text" placeholder="Buscar título...">
+            </div>
+        </div>
+
+        <div id="loadingState" class="text-secondary mb-3">Cargando catalogo...</div>
+        <div id="catalogGrid" class="row g-4"></div>
+    </main>
+
+    <div class="modal fade" id="movieModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="movieModalTitle">Detalle de pelicula</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-lg-7 video-wrap">
+                            <video id="moviePlayer" controls preload="metadata"></video>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="mb-2 meta" id="movieMeta"></div>
+                            <p id="movieDescription" class="mb-3"></p>
+                            <a id="movieDirectLink" href="#" target="_blank" class="btn btn-outline-info btn-sm mt-2">Abrir video directo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script>
+        const API_BASE = 'http://127.0.0.1:8003/api/catalog/movies';
+        const fallbackPoster = 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80';
 
+        const catalogGrid = document.getElementById('catalogGrid');
+        const loadingState = document.getElementById('loadingState');
+        const countLabel = document.getElementById('countLabel');
+        const titleSearch = document.getElementById('titleSearch');
+        const genrePills = document.getElementById('genrePills');
+
+        const movieModalEl = document.getElementById('movieModal');
+        const movieModal = new bootstrap.Modal(movieModalEl);
+
+        let activeGenre = '';
+        let searchTimeout = null;
+
+        function asDate(dateValue) {
+            if (!dateValue) return 'Sin fecha';
+            return new Date(dateValue + 'T00:00:00').toLocaleDateString('es-MX', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function formatViews(views) {
+            const parsed = Number(views || 0);
+            return parsed.toLocaleString('es-MX') + ' vistas';
+        }
+
+        function buildMovieCard(movie) {
+            const col = document.createElement('div');
+            col.className = 'col-12 col-md-6 col-lg-4';
+
+            const posterNode = movie.thumbnail_url
+                ? `<img class="poster" src="${movie.thumbnail_url}" onerror="this.src='${fallbackPoster}'" alt="Poster de ${movie.title}">`
+                : `<div class="placeholder-poster"><i class="bi bi-film"></i></div>`;
+
+            col.innerHTML = `
+                <article class="movie-card p-0">
+                    ${posterNode}
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                            <h5 class="mb-0">${movie.title}</h5>
+                            <span class="chip">${movie.genre}</span>
+                        </div>
+                        <p class="meta mb-2">${asDate(movie.released_at)} | ${formatViews(movie.views_count)}</p>
+                        <p class="mb-3">${(movie.description || 'Sin sinopsis').slice(0, 170)}...</p>
+                        <button class="btn btn-sm btn-info" data-id="${movie.id}">
+                            <i class="bi bi-play-circle me-1"></i> Ver detalle
+                        </button>
+                    </div>
+                </article>
+            `;
+
+            const detailBtn = col.querySelector('button[data-id]');
+            detailBtn.addEventListener('click', () => openMovie(movie));
+            return col;
+        }
+
+        function openMovie(movie) {
+            document.getElementById('movieModalTitle').textContent = movie.title;
+            document.getElementById('movieDescription').textContent = movie.description || 'Sin sinopsis';
+            document.getElementById('movieMeta').textContent = `${movie.genre} | ${asDate(movie.released_at)} | ${formatViews(movie.views_count)}`;
+
+            const player = document.getElementById('moviePlayer');
+            player.src = movie.video_url || '';
+
+            const directLink = document.getElementById('movieDirectLink');
+            directLink.href = movie.video_url || '#';
+            directLink.classList.toggle('disabled', !movie.video_url);
+
+            movieModal.show();
+        }
+
+        async function loadCatalog() {
+            loadingState.textContent = 'Cargando catálogo...';
+            catalogGrid.innerHTML = '';
+
+            try {
+                const params = new URLSearchParams({ per_page: 50 });
+                if (activeGenre) params.set('genre', activeGenre);
+
+                const response = await fetch(`${API_BASE}?${params}`);
+
+                if (!response.ok) throw new Error();
+
+                const payload = await response.json();
+                let rows = Array.isArray(payload.data) ? payload.data : [];
+
+                const titleFilter = titleSearch.value.trim().toLowerCase();
+                if (titleFilter) {
+                    rows = rows.filter(m => m.title.toLowerCase().includes(titleFilter));
+                }
+
+                countLabel.textContent = `${rows.length} título(s)`;
+
+                if (!rows.length) {
+                    loadingState.innerHTML = '<div class="empty-state">No hay películas para mostrar.</div>';
+                    return;
+                }
+
+                loadingState.textContent = '';
+                rows.forEach((movie) => catalogGrid.appendChild(buildMovieCard(movie)));
+            } catch (error) {
+                loadingState.innerHTML = '<div class="empty-state">No se pudo cargar el catálogo. Verifica que catalog-service esté en puerto 8003.</div>';
+                countLabel.textContent = '0 título(s)';
+            }
+        }
+
+        genrePills.addEventListener('click', (e) => {
+            const pill = e.target.closest('.genre-pill');
+            if (!pill) return;
+            genrePills.querySelectorAll('.genre-pill').forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            activeGenre = pill.dataset.genre;
+            loadCatalog();
+        });
+
+        titleSearch.addEventListener('input', () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(loadCatalog, 350);
+        });
+
+        movieModalEl.addEventListener('hidden.bs.modal', () => {
+            const player = document.getElementById('moviePlayer');
+            player.pause();
+            player.removeAttribute('src');
+            player.load();
+        });
+
+        loadCatalog();
+    </script>
+    <!-- Firebase Auth Status -->
+    <script type="module">
+        import { auth } from "{{ asset('js/firebase-config.js') }}";
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+        
+        const authLink = document.getElementById('auth-link');
+        const authText = document.getElementById('auth-text');
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                authText.textContent = user.displayName ? 'Hola, ' + user.displayName : 'Mi Cuenta';
+                authLink.href = "#";
+                authLink.onclick = (e) => {
+                    e.preventDefault();
+                    if(confirm("¿Deseas cerrar sesión?")) {
+                        signOut(auth).then(() => {
+                            window.location.reload();
+                        });
+                    }
+                };
+            } else {
+                authText.textContent = 'Iniciar Sesión';
+                authLink.href = "{{ url('/login') }}";
+                authLink.onclick = null;
+            }
+        });
+    </script>
+</body>
 </html>
